@@ -57,3 +57,11 @@ Ingest the codebase: ```python ingest.py```
 Start the API: ```python main_api.py```
 
 Access the API Docs: http://localhost:8001/docs
+
+## 🖼️ System Gallery
+
+### 🧠 Agent Reasoning
+![Agent Logic](./assets/agent-logic.png)
+
+### 📊 Graph Architecture
+![Graph Structure](./assets/dependency-graph.png)
