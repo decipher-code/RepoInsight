@@ -64,4 +64,4 @@ Access the API Docs: http://localhost:8001/docs
 ![Agent Logic](./assets/agent-logic.png)
 
 ### 📊 Graph Architecture
-![Graph Structure](./assets/dependency-graph.png)
+![Graph Structure](./assets/dependency_graph.png)
