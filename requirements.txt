@@ -1,0 +1,12 @@
+chromadb
+tree-sitter==0.22.3
+tree-sitter-cpp==0.22.0
+networkx
+langchain-openai
+langgraph
+fastapi
+uvicorn
+pydantic
+python-multipart
+langchain-community
+langchain-core
