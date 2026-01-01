@@ -61,7 +61,15 @@ Access the API Docs: http://localhost:8001/docs
 ## 🖼️ System Gallery
 
 ### 🧠 Agent Reasoning
+Autonomous Reasoning Loop: Execution logs demonstrating the LangGraph agent performing multi-step dependency tracing. The agent autonomously 
+determines when to query the vector database vs. the knowledge graph to resolve cross-file dependencies.
+
 ![Agent Logic](./assets/agent-logic.png)
 
-### 📊 Graph Architecture
+### 📊 Structural Analysis (Knowledge Graph)
+The system parses C++ source code into a directed graph where nodes represent functions/classes and edges represent calls or inclusions. This allows the Agent to perform "structural hops" that are invisible to standard vector search.
+
 ![Graph Structure](./assets/dependency_graph.png)
+
+
+
