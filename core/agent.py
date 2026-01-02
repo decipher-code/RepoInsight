@@ -42,10 +42,8 @@ def dependency_trace_tool(symbol_name: str):
 tools = [code_search_tool, dependency_trace_tool]
 tool_map = {t.name: t for t in tools}
 
-# --- agent setup ---
-# HARDCODE YOUR API KEY HERE
-# Replace "sk-or-..." with your actual key from openrouter.ai
-OPENROUTER_API_KEY = "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"
+
+OPENROUTER_API_KEY = "sk-or-....."
 
 if OPENROUTER_API_KEY == "sk-or-...":
     OPENROUTER_API_KEY = os.environ.get("OPENROUTER_API_KEY")
@@ -129,14 +127,14 @@ if __name__ == "__main__":
     # 2. Use dependency_trace_tool to see how files relates.
     # 3. Look for raw pointers and mention memory safety.
     # """
-#     prompt = """You are a Microsoft Principal Software Engineer. 
-# Your goal is to explain architecture briefly.
-# Rules:
-# 1. Once you find the function name and the file it's in, STOP searching for the full code.
-# 2. If you find a call chain like 'A calls B calls C', stop and summarize immediately.
-# 3. Do not perform more than 10 searches total.
-# """
-    prompt = "You are a C++ expert. Give 1-sentence answers. Use tools only if essential."
+    prompt = """You are a Microsoft Principal Software Engineer. 
+Your goal is to explain architecture briefly.
+Rules:
+1. Once you find the function name and the file it's in, STOP searching for the full code.
+2. If you find a call chain like 'A calls B calls C', stop and summarize immediately.
+3. Do not perform more than 10 searches total.
+"""
+   
     
     
     query = """
