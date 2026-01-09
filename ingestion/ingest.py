@@ -4,12 +4,12 @@ from tree_sitter import Language, Parser
 import tree_sitter_cpp as tscpp
 import networkx as nx
 
-# 1. Initialize the C++ Parser
+# Initializing the C++ Parser
 from tree_sitter import Query
 CPP_LANGUAGE = Language(tscpp.language())
 parser = Parser(CPP_LANGUAGE)
 
-# 2. Initialize Vector DB and Graph
+#  Initializing Vector DB and Graph
 client = chromadb.PersistentClient(path="./repo_db")
 collection = client.get_or_create_collection(name="music_player_repo")
 G = nx.DiGraph()
@@ -35,17 +35,17 @@ def extract_cpp_symbols(file_path):
     chunks = []
     
     for node, tag in captures:
-        # Build Vector DB chunks
+        # Building Vector DB chunks
         chunks.append({
             "id": f"{file_path}_{node.start_byte}",
             "text": node.parent.text.decode('utf8'),
             "metadata": {"file": file_path, "type": tag, "name": node.text.decode('utf8')}
         })
 
-        # Build Graph Edges (Function Calls)
+        # Building Graph Edges (Function Calls)
         if tag == "func_name":
             caller_name = node.text.decode('utf8')
-            # Look for calls inside this function's body (node.parent is the function_definition)
+            # Look for calls inside this function's body 
             function_body = node.parent
             calls = call_query.captures(function_body)
             for call_node, _ in calls:
@@ -54,8 +54,8 @@ def extract_cpp_symbols(file_path):
                 
     return chunks
 
-# 3. Process your Music Player Folder
-repo_path = "./my_music_player" # Path to your C++ files
+#  Processing data
+repo_path = "./my_music_player" 
 for root, _, files in os.walk(repo_path):
     for file in files:
         if file.endswith((".cpp", ".h")):
@@ -67,8 +67,9 @@ for root, _, files in os.walk(repo_path):
                     documents=[item["text"]],
                     metadatas=[item["metadata"]]
                 )
-# 4. Save the Graph
+#  Saving the Graph
 print(f"Graph nodes: {len(G.nodes)}")
 print(f"Graph edges: {len(G.edges)}")
 nx.write_gml(G, "repo_graph.gml")
+
 print("Saved dependency graph to repo_graph.gml")
