@@ -13,7 +13,7 @@ from langchain_core.messages import BaseMessage, HumanMessage, AIMessage, System
 from langgraph.graph import StateGraph, END
 import operator
 
-# --- setup connections ---
+#setting up connection
 client = chromadb.PersistentClient(path="./repo_db")
 collection = client.get_collection(name="music_player_repo")
 try:
@@ -22,7 +22,7 @@ try:
 except:
     G = nx.DiGraph()
 
-# --- tools ---
+
 @tool
 def code_search_tool(query: str):
     """Searches the C++ codebase for semantic logic."""
@@ -60,10 +60,10 @@ if not OPENROUTER_API_KEY:
 
 # Configure Client for OpenRouter
 # AVAILABLE FREE MODELS (Uncomment one if others fail):
-# model="meta-llama/llama-3.1-8b-instruct:free"   # (Often busy/404)
-# model="google/gemini-2.0-flash-exp:free"      # (Often rate limited)
-# model="microsoft/phi-3-mini-128k-instruct:free" # (Good alternative)
-# model="mistralai/mistral-7b-instruct:free"      # (Reliable fallback)
+# model="meta-llama/llama-3.1-8b-instruct:free"  
+# model="google/gemini-2.0-flash-exp:free"      
+# model="microsoft/phi-3-mini-128k-instruct:free" 
+# model="mistralai/mistral-7b-instruct:free"      
 
 llm = ChatOpenAI(
     model="openrouter/auto", # Stable free endpoint
@@ -71,12 +71,12 @@ llm = ChatOpenAI(
     openai_api_base="https://openrouter.ai/api/v1",
     max_tokens=400,
     default_headers={
-        "HTTP-Referer": "http://localhost:3000", # Required by OpenRouter
+        "HTTP-Referer": "http://localhost:3000", 
         "X-Title": "RepoInsight_Project",
     }
 )
 # llm = ChatOpenAI(
-#     model="microsoft/phi-3-mini-128k-instruct:free", # Trying Phi-3 Mini which is fast and supports context
+#     model="microsoft/phi-3-mini-128k-instruct:free",
 #     openai_api_key=OPENROUTER_API_KEY,
 #     openai_api_base="https://openrouter.ai/api/v1",
 #     default_headers={
