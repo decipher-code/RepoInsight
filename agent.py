@@ -45,19 +45,10 @@ tool_map = {t.name: t for t in tools}
 # --- agent setup ---
 # HARDCODE YOUR API KEY HERE
 # Replace "sk-or-..." with your actual key from openrouter.ai
-OPENROUTER_API_KEY = "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"
-
-if OPENROUTER_API_KEY == "sk-or-...":
-    OPENROUTER_API_KEY = os.environ.get("OPENROUTER_API_KEY")
+OPENROUTER_API_KEY = os.environ.get("OPENROUTER_API_KEY")
 
 if not OPENROUTER_API_KEY:
-    try:
-        OPENROUTER_API_KEY = input("Please enter your OpenRouter API Key: ")
-    except:
-        pass
-
-if not OPENROUTER_API_KEY:
-    print("Error: No API Key provided. Please edit agent.py to set OPENROUTER_API_KEY.")
+    print("Error: No API Key provided.")
     exit(1)
 
 # Configure Client for OpenRouter
