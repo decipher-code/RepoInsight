@@ -59,7 +59,7 @@ if not OPENROUTER_API_KEY:
 # model="mistralai/mistral-7b-instruct:free"      # (Reliable fallback)
 
 llm = ChatOpenAI(
-    model="google/gemma-4-31b-it:free", # Stable free endpoint
+    model="deepseek/deepseek-v4-flash:free", # Stable free endpoint
     openai_api_key=OPENROUTER_API_KEY,
     openai_api_base="https://openrouter.ai/api/v1",
     max_tokens=400,
