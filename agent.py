@@ -7,7 +7,7 @@ os.environ["TOKENIZERS_PARALLELISM"] = "false"
 import networkx as nx
 import chromadb
 from typing import TypedDict, Annotated, List, Union
-from langchain_openai import ChatOpenAI
+# from langchain_openai import ChatOpenAI
 from langchain_core.tools import tool
 from langchain_core.messages import BaseMessage, HumanMessage, AIMessage, SystemMessage, ToolMessage
 from langgraph.graph import StateGraph, END
@@ -45,11 +45,11 @@ tool_map = {t.name: t for t in tools}
 # --- agent setup ---
 # HARDCODE YOUR API KEY HERE
 # Replace "sk-or-..." with your actual key from openrouter.ai
-OPENROUTER_API_KEY = os.environ.get("OPENROUTER_API_KEY")
+# OPENROUTER_API_KEY = os.environ.get("OPENROUTER_API_KEY")
 
-if not OPENROUTER_API_KEY:
-    print("Error: No API Key provided.")
-    exit(1)
+# if not OPENROUTER_API_KEY:
+#     print("Error: No API Key provided.")
+#     exit(1)
 
 # Configure Client for OpenRouter
 # AVAILABLE FREE MODELS (Uncomment one if others fail):
@@ -57,17 +57,22 @@ if not OPENROUTER_API_KEY:
 # model="google/gemini-2.0-flash-exp:free"      # (Often rate limited)
 # model="microsoft/phi-3-mini-128k-instruct:free" # (Good alternative)
 # model="mistralai/mistral-7b-instruct:free"      # (Reliable fallback)
+from langchain_groq import ChatGroq
 
-llm = ChatOpenAI(
-    model="deepseek/deepseek-v4-flash:free", # Stable free endpoint
-    openai_api_key=OPENROUTER_API_KEY,
-    openai_api_base="https://openrouter.ai/api/v1",
-    max_tokens=400,
-    default_headers={
-        "HTTP-Referer": "http://localhost:3000", # Required by OpenRouter
-        "X-Title": "RepoInsight_Project",
-    }
+llm = ChatGroq(
+    model="llama-3.1-8b-instant",
+    api_key=os.environ.get("GROQ_API_KEY"),
 )
+# llm = ChatOpenAI(
+#     model="deepseek/deepseek-v4-flash:free", # Stable free endpoint
+#     openai_api_key=OPENROUTER_API_KEY,
+#     openai_api_base="https://openrouter.ai/api/v1",
+#     max_tokens=400,
+#     default_headers={
+#         "HTTP-Referer": "http://localhost:3000", # Required by OpenRouter
+#         "X-Title": "RepoInsight_Project",
+#     }
+# )
 # llm = ChatOpenAI(
 #     model="microsoft/phi-3-mini-128k-instruct:free", # Trying Phi-3 Mini which is fast and supports context
 #     openai_api_key=OPENROUTER_API_KEY,
