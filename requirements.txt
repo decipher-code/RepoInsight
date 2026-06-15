@@ -11,3 +11,4 @@ python-multipart
 langchain-community
 langchain-core
 matplotlib
+langchain-groq
