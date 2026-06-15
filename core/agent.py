@@ -43,20 +43,20 @@ tools = [code_search_tool, dependency_trace_tool]
 tool_map = {t.name: t for t in tools}
 
 
-OPENROUTER_API_KEY = "sk-or-....."
+# OPENROUTER_API_KEY = "sk-or-....."
 
-if OPENROUTER_API_KEY == "sk-or-...":
-    OPENROUTER_API_KEY = os.environ.get("OPENROUTER_API_KEY")
+# if OPENROUTER_API_KEY == "sk-or-...":
+#     OPENROUTER_API_KEY = os.environ.get("OPENROUTER_API_KEY")
 
-if not OPENROUTER_API_KEY:
-    try:
-        OPENROUTER_API_KEY = input("Please enter your OpenRouter API Key: ")
-    except:
-        pass
+# if not OPENROUTER_API_KEY:
+#     try:
+#         OPENROUTER_API_KEY = input("Please enter your OpenRouter API Key: ")
+#     except:
+#         pass
 
-if not OPENROUTER_API_KEY:
-    print("Error: No API Key provided. Please edit agent.py to set OPENROUTER_API_KEY.")
-    exit(1)
+# if not OPENROUTER_API_KEY:
+#     print("Error: No API Key provided. Please edit agent.py to set OPENROUTER_API_KEY.")
+#     exit(1)
 
 # Configure Client for OpenRouter
 # AVAILABLE FREE MODELS (Uncomment one if others fail):
