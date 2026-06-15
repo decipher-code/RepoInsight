@@ -64,17 +64,22 @@ if not OPENROUTER_API_KEY:
 # model="google/gemini-2.0-flash-exp:free"      
 # model="microsoft/phi-3-mini-128k-instruct:free" 
 # model="mistralai/mistral-7b-instruct:free"      
+from langchain_groq import ChatGroq
 
-llm = ChatOpenAI(
-    model="deepseek/deepseek-v4-flash", # Stable free endpoint
-    openai_api_key=OPENROUTER_API_KEY,
-    openai_api_base="https://openrouter.ai/api/v1",
-    max_tokens=400,
-    default_headers={
-        "HTTP-Referer": "http://localhost:3000", 
-        "X-Title": "RepoInsight_Project",
-    }
+llm = ChatGroq(
+    model="llama-3.1-8b-instant",
+    api_key=os.environ.get("GROQ_API_KEY"),
 )
+# llm = ChatOpenAI(
+#     model="deepseek/deepseek-v4-flash", # Stable free endpoint
+#     openai_api_key=OPENROUTER_API_KEY,
+#     openai_api_base="https://openrouter.ai/api/v1",
+#     max_tokens=400,
+#     default_headers={
+#         "HTTP-Referer": "http://localhost:3000", 
+#         "X-Title": "RepoInsight_Project",
+#     }
+# )
 # llm = ChatOpenAI(
 #     model="microsoft/phi-3-mini-128k-instruct:free",
 #     openai_api_key=OPENROUTER_API_KEY,
