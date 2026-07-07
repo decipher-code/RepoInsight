@@ -7,13 +7,12 @@ os.environ["TOKENIZERS_PARALLELISM"] = "false"
 import networkx as nx
 import chromadb
 from typing import TypedDict, Annotated, List, Union
-# from langchain_openai import ChatOpenAI
 from langchain_core.tools import tool
 from langchain_core.messages import BaseMessage, HumanMessage, AIMessage, SystemMessage, ToolMessage
 from langgraph.graph import StateGraph, END
 import operator
 
-# --- setup connections ---
+
 client = chromadb.PersistentClient(path="./repo_db")
 collection = client.get_collection(name="music_player_repo")
 try:
@@ -22,7 +21,7 @@ try:
 except:
     G = nx.DiGraph()
 
-# --- tools ---
+
 @tool
 def code_search_tool(query: str):
     """Searches the C++ codebase for semantic logic."""
@@ -42,46 +41,14 @@ def dependency_trace_tool(symbol_name: str):
 tools = [code_search_tool, dependency_trace_tool]
 tool_map = {t.name: t for t in tools}
 
-# --- agent setup ---
-# HARDCODE YOUR API KEY HERE
-# Replace "sk-or-..." with your actual key from openrouter.ai
-# OPENROUTER_API_KEY = os.environ.get("OPENROUTER_API_KEY")
 
-# if not OPENROUTER_API_KEY:
-#     print("Error: No API Key provided.")
-#     exit(1)
-
-# Configure Client for OpenRouter
-# AVAILABLE FREE MODELS (Uncomment one if others fail):
-# model="meta-llama/llama-3.1-8b-instruct:free"   # (Often busy/404)
-# model="google/gemini-2.0-flash-exp:free"      # (Often rate limited)
-# model="microsoft/phi-3-mini-128k-instruct:free" # (Good alternative)
-# model="mistralai/mistral-7b-instruct:free"      # (Reliable fallback)
 from langchain_groq import ChatGroq
 
 llm = ChatGroq(
     model="llama-3.1-8b-instant",
     api_key=os.environ.get("GROQ_API_KEY"),
 )
-# llm = ChatOpenAI(
-#     model="deepseek/deepseek-v4-flash:free", # Stable free endpoint
-#     openai_api_key=OPENROUTER_API_KEY,
-#     openai_api_base="https://openrouter.ai/api/v1",
-#     max_tokens=400,
-#     default_headers={
-#         "HTTP-Referer": "http://localhost:3000", # Required by OpenRouter
-#         "X-Title": "RepoInsight_Project",
-#     }
-# )
-# llm = ChatOpenAI(
-#     model="microsoft/phi-3-mini-128k-instruct:free", # Trying Phi-3 Mini which is fast and supports context
-#     openai_api_key=OPENROUTER_API_KEY,
-#     openai_api_base="https://openrouter.ai/api/v1",
-#     default_headers={
-#         "HTTP-Referer": "http://localhost:3000",
-#         "X-Title": "RepoInsight Agent"
-#     }
-# )
+
 llm_with_tools = llm.bind_tools(tools)
 
 class AgentState(TypedDict):
@@ -118,20 +85,7 @@ workflow.add_edge("tools", "agent")
 app = workflow.compile()
 
 if __name__ == "__main__":
-    # prompt = """You are a Microsoft Principal Software Engineer. 
-    # Your goal is to explain the architecture of a C++ Music Player repo.
-    # Rules:
-    # 1. Use code_search_tool to find implementations.
-    # 2. Use dependency_trace_tool to see how files relates.
-    # 3. Look for raw pointers and mention memory safety.
-    # """
-#     prompt = """You are a Microsoft Principal Software Engineer. 
-# Your goal is to explain architecture briefly.
-# Rules:
-# 1. Once you find the function name and the file it's in, STOP searching for the full code.
-# 2. If you find a call chain like 'A calls B calls C', stop and summarize immediately.
-# 3. Do not perform more than 10 searches total.
-# """
+
     prompt = "You are a C++ expert. Give 1-sentence answers. Use tools only if essential."
     
     
