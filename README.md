@@ -47,7 +47,7 @@ Containerization: Docker
 Bash
 
 docker build -t repo-insight .
-docker run -p 8001:8001 -e OPENROUTER_API_KEY='your_key' repo-insight
+docker run -p 8001:8001 -e GROQ_API_KEY='your_key' repo-insight
 ```
 2. Local Setup
 Install dependencies: ``` pip install -r requirements.txt```
